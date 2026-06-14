@@ -1,0 +1,16 @@
+version: "2.0"
+name: "design-prd-execution-summary"
+repo:
+  url: "https://github.com/innuama-coder/spec-executor-testing-08-design.git"
+  branch: "main"
+task_dir: "tasks/prd"
+executor: "claude"
+deliverables:
+  - path: "outputs/PRD.md"
+    verify: "test -s outputs/PRD.md && grep -q \"PRD\" outputs/PRD.md && grep -q \"修订\" outputs/PRD.md && grep -q \"FR\" outputs/PRD.md && grep -q \"NFR\" outputs/PRD.md && grep -q \"验收\" outputs/PRD.md"
+execution:
+  poll_interval_sec: 2
+  idle_timeout_sec: 90
+  max_duration_min: 15
+  max_nudge_count: 3
+  max_consecutive_escalate: 2

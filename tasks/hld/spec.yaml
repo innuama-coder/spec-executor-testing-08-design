@@ -1,0 +1,16 @@
+version: "2.0"
+name: "design-hld-execution-summary"
+repo:
+  url: "https://github.com/innuama-coder/spec-executor-testing-08-design.git"
+  branch: "main"
+task_dir: "tasks/hld"
+executor: "claude"
+deliverables:
+  - path: "outputs/HLD.md"
+    verify: "test -s outputs/PRD.md && test -s outputs/HLD.md && grep -q \"HLD\" outputs/HLD.md && grep -q \"数据流\" outputs/HLD.md && grep -q \"ADR\" outputs/HLD.md"
+execution:
+  poll_interval_sec: 2
+  idle_timeout_sec: 90
+  max_duration_min: 15
+  max_nudge_count: 3
+  max_consecutive_escalate: 2
