@@ -1,16 +1,84 @@
-version: "2.0"
+version: "2.3"
 name: "design-hld-execution-summary"
 repo:
   url: "https://github.com/innuama-coder/spec-executor-testing-08-design.git"
   branch: "main"
 task_dir: "tasks/hld"
 executor: "claude"
-deliverables:
-  - path: "outputs/HLD.md"
-    verify: "test -s outputs/PRD.md && test -s outputs/HLD.md && grep -q \"HLD\" outputs/HLD.md && grep -q \"数据流\" outputs/HLD.md && grep -q \"ADR\" outputs/HLD.md"
 execution:
   poll_interval_sec: 2
   idle_timeout_sec: 90
   max_duration_min: 15
   max_nudge_count: 3
   max_consecutive_escalate: 2
+  env:
+    file: "ENV"
+    required: false
+    privacy: "redacted"
+  agent:
+    id: "hld-design-agent"
+    name: "hld-design-agent"
+    role: "按 PRD 生成 HLD，保证数据流、架构决策和边界清晰。"
+    model:
+      preference: "default"
+    instructions:
+      - "Claude HLD Agent、上下文 refs 与验证命令。"
+      - "严格遵守任务包中的 PROMPT、AGENTS、CLAUDE 与 docs 上下文。"
+      - "ENV 仅用于进程环境注入，不得作为上下文文件读取或在默认输出中泄漏变量值。"
+      - "若存在 review items，必须在同一 JOB 内完成修复、验证和交付说明更新。"
+    context:
+      files:
+        - "PROMPT.md"
+        - "AGENTS.md"
+        - "CLAUDE.md"
+      exclude:
+        - "ENV"
+    tools:
+      allow:
+        - "shell"
+        - "apply_patch"
+      deny:
+        - "network"
+    permissions:
+      filesystem: "workspace-write"
+      network: "deny"
+      approval: "on-request"
+  review:
+    max_iterations: 2
+    items:
+      - id: "REV-HLD-001"
+        source: "external-review"
+        severity: "must"
+        target: "outputs/HLD.md"
+        description: "HLD 必须包含数据流与 ADR。"
+        expected_fix: "补齐数据流、ADR 和架构约束。"
+        evidence_refs:
+          - "PROMPT.md"
+        acceptance:
+          command: "grep -q \"数据流\" outputs/HLD.md && grep -q \"ADR\" outputs/HLD.md"
+  lifecycle:
+    resume:
+      require_same_job: true
+    monitoring:
+      busy_side_effect: "observe_only"
+      source_degraded_policy: "bounded_failure"
+      screen_capture_semantic_fallback: false
+    capture:
+      default_raw_output: false
+      failure_evidence: true
+verification:
+  pass_threshold: 1
+  commands:
+    - "test -s outputs/PRD.md"
+    - "test -s outputs/HLD.md"
+    - "grep -q \"HLD\" outputs/HLD.md"
+    - "grep -q \"数据流\" outputs/HLD.md"
+    - "grep -q \"ADR\" outputs/HLD.md"
+reporting:
+  format: "markdown"
+  include_evidence_refs: true
+  redact_env_values: true
+  include_handoff: true
+deliverables:
+  - path: "outputs/HLD.md"
+    verify: "test -s outputs/PRD.md && test -s outputs/HLD.md && grep -q \"HLD\" outputs/HLD.md && grep -q \"数据流\" outputs/HLD.md && grep -q \"ADR\" outputs/HLD.md"

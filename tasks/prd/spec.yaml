@@ -1,16 +1,84 @@
-version: "2.0"
+version: "2.3"
 name: "design-prd-execution-summary"
 repo:
   url: "https://github.com/innuama-coder/spec-executor-testing-08-design.git"
   branch: "main"
 task_dir: "tasks/prd"
 executor: "claude"
-deliverables:
-  - path: "outputs/PRD.md"
-    verify: "test -s outputs/PRD.md && grep -q \"PRD\" outputs/PRD.md && grep -q \"修订\" outputs/PRD.md && grep -q \"FR\" outputs/PRD.md && grep -q \"NFR\" outputs/PRD.md && grep -q \"验收\" outputs/PRD.md"
 execution:
   poll_interval_sec: 2
   idle_timeout_sec: 90
   max_duration_min: 15
   max_nudge_count: 3
   max_consecutive_escalate: 2
+  env:
+    file: "ENV"
+    required: false
+    privacy: "redacted"
+  agent:
+    id: "prd-design-agent"
+    name: "prd-design-agent"
+    role: "按任务包生成 PRD，保证需求、验收与非功能约束完整。"
+    model:
+      preference: "default"
+    instructions:
+      - "Claude 设计型 Agent、review 单轮迭代。"
+      - "严格遵守任务包中的 PROMPT、AGENTS、CLAUDE 与 docs 上下文。"
+      - "ENV 仅用于进程环境注入，不得作为上下文文件读取或在默认输出中泄漏变量值。"
+      - "若存在 review items，必须在同一 JOB 内完成修复、验证和交付说明更新。"
+    context:
+      files:
+        - "PROMPT.md"
+        - "AGENTS.md"
+        - "CLAUDE.md"
+      exclude:
+        - "ENV"
+    tools:
+      allow:
+        - "shell"
+        - "apply_patch"
+      deny:
+        - "network"
+    permissions:
+      filesystem: "workspace-write"
+      network: "deny"
+      approval: "on-request"
+  review:
+    max_iterations: 2
+    items:
+      - id: "REV-PRD-001"
+        source: "external-review"
+        severity: "must"
+        target: "outputs/PRD.md"
+        description: "PRD 必须包含 FR、NFR 与验收章节。"
+        expected_fix: "补齐 FR、NFR、验收标准和修订记录。"
+        evidence_refs:
+          - "PROMPT.md"
+        acceptance:
+          command: "grep -q \"FR\" outputs/PRD.md && grep -q \"NFR\" outputs/PRD.md && grep -q \"验收\" outputs/PRD.md"
+  lifecycle:
+    resume:
+      require_same_job: true
+    monitoring:
+      busy_side_effect: "observe_only"
+      source_degraded_policy: "bounded_failure"
+      screen_capture_semantic_fallback: false
+    capture:
+      default_raw_output: false
+      failure_evidence: true
+verification:
+  pass_threshold: 1
+  commands:
+    - "test -s outputs/PRD.md"
+    - "grep -q \"PRD\" outputs/PRD.md"
+    - "grep -q \"FR\" outputs/PRD.md"
+    - "grep -q \"NFR\" outputs/PRD.md"
+    - "grep -q \"验收\" outputs/PRD.md"
+reporting:
+  format: "markdown"
+  include_evidence_refs: true
+  redact_env_values: true
+  include_handoff: true
+deliverables:
+  - path: "outputs/PRD.md"
+    verify: "test -s outputs/PRD.md && grep -q \"PRD\" outputs/PRD.md && grep -q \"修订\" outputs/PRD.md && grep -q \"FR\" outputs/PRD.md && grep -q \"NFR\" outputs/PRD.md && grep -q \"验收\" outputs/PRD.md"
