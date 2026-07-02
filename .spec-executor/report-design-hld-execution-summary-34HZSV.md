@@ -49,8 +49,11 @@
 
 ## Merging Result
 
-**Result:** — Skipped
+**Result:** ✓ Merged
 
-- **Reason:** `skipped`
-- **Worktree status:** `kept_for_manual_review`
+- **Source branch:** `spec-exec/design-hld-execution-summary-34HZSV`
+- **Target branch:** `main`
+- **Merge commit:** `8fe3494757197ed8e744dd9c84a8643744cc8f81`
+- **Merged at:** `2026-07-02T03:16:40.453598+00:00`
+- **Push:** `pushed` to `origin`
 
