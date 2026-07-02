@@ -1,0 +1,87 @@
+{
+  "deliverables": {
+    "aggregate": {
+      "failed": 0,
+      "passed": 1,
+      "total": 1,
+      "total_duration_ms": 27,
+      "verify_executed": 1,
+      "verify_passed": 1,
+      "warning_items": 0
+    },
+    "finished_at": "2026-07-02T03:09:06.456973+00:00",
+    "items": [
+      {
+        "duration_ms": 26,
+        "existence": "present_file",
+        "existence_detail": null,
+        "failure_detail": null,
+        "failure_reason": null,
+        "passed": true,
+        "path": "outputs/PRD.md",
+        "verify_command": "test -s outputs/PRD.md && grep -q \"PRD\" outputs/PRD.md && grep -q \"修订\" outputs/PRD.md && grep -q \"FR\" outputs/PRD.md && grep -q \"NFR\" outputs/PRD.md && grep -q \"验收\" outputs/PRD.md",
+        "verify_duration_ms": 26,
+        "verify_exit_code": 0,
+        "verify_signal": null,
+        "verify_stderr_tail": "",
+        "verify_stdout_tail": "",
+        "verify_timed_out": false,
+        "warnings": []
+      }
+    ],
+    "not_run_reason": null,
+    "started_at": "2026-07-02T03:09:06.429911+00:00",
+    "verification": "ran"
+  },
+  "generated_at": "2026-07-02T03:09:06.423822+00:00",
+  "merging": {
+    "attempted": false,
+    "base_branch": null,
+    "conflict": null,
+    "merge_commit_sha": null,
+    "merged_at": null,
+    "push_detail": null,
+    "push_status": "not_attempted",
+    "pushed": false,
+    "result": "skipped",
+    "skip_reason": "skipped",
+    "source_branch": "spec-exec/design-prd-execution-summary-PMV8KY"
+  },
+  "metadata": {
+    "duration_ms": 253546,
+    "executor": "claude",
+    "finished_at": "2026-07-02T03:09:06.423822+00:00",
+    "log_dir": "/Users/royzuo/spec-e2e-v23/logs-prd/design-prd-execution-summary-PMV8KY",
+    "mode": "worktree",
+    "repo_branch_base": "main",
+    "repo_branch_worktree": "spec-exec/design-prd-execution-summary-PMV8KY",
+    "repo_url": "https://github.com/innuama-coder/spec-executor-testing-08-design.git",
+    "session_id": "design-prd-execution-summary-PMV8KY",
+    "started_at": "2026-07-02T03:04:52.877182+00:00",
+    "task_name": "design-prd-execution-summary",
+    "worktree_path": "/Users/royzuo/spec-e2e-v23/.spec-executor-worktrees/design-prd-execution-summary-PMV8KY"
+  },
+  "monitoring": {
+    "consecutive_escalate": 0,
+    "decision_done": 1,
+    "decision_escalate_normalized": 0,
+    "decision_fallback_used": 0,
+    "decision_nudge": 0,
+    "decision_timeout": 0,
+    "decision_total": 1,
+    "idle_timeout_hits": 1,
+    "last_decision_action": "done",
+    "last_decision_text": "Brewed for 3m37s; PRD with AC-001~007, OQs, verification PASS; task complete",
+    "monitoring_finished_at": "2026-07-02T03:09:06.423822+00:00",
+    "monitoring_started_at": "2026-07-02T03:05:12.486179+00:00",
+    "nudge_count": 0,
+    "poll_count": 28
+  },
+  "schema_version": "spec-executor-report/2.0",
+  "spec_executor_version": "2.2.7",
+  "status": {
+    "failure_category": null,
+    "failure_detail": null,
+    "result": "passed"
+  }
+}
