@@ -1,0 +1,87 @@
+{
+  "deliverables": {
+    "aggregate": {
+      "failed": 0,
+      "passed": 1,
+      "total": 1,
+      "total_duration_ms": 18,
+      "verify_executed": 1,
+      "verify_passed": 1,
+      "warning_items": 0
+    },
+    "finished_at": "2026-07-02T03:16:40.261488+00:00",
+    "items": [
+      {
+        "duration_ms": 17,
+        "existence": "present_file",
+        "existence_detail": null,
+        "failure_detail": null,
+        "failure_reason": null,
+        "passed": true,
+        "path": "outputs/HLD.md",
+        "verify_command": "test -s outputs/PRD.md && test -s outputs/HLD.md && grep -q \"HLD\" outputs/HLD.md && grep -q \"数据流\" outputs/HLD.md && grep -q \"ADR\" outputs/HLD.md",
+        "verify_duration_ms": 17,
+        "verify_exit_code": 0,
+        "verify_signal": null,
+        "verify_stderr_tail": "",
+        "verify_stdout_tail": "",
+        "verify_timed_out": false,
+        "warnings": []
+      }
+    ],
+    "not_run_reason": null,
+    "started_at": "2026-07-02T03:16:40.243429+00:00",
+    "verification": "ran"
+  },
+  "generated_at": "2026-07-02T03:16:40.237344+00:00",
+  "merging": {
+    "attempted": false,
+    "base_branch": null,
+    "conflict": null,
+    "merge_commit_sha": null,
+    "merged_at": null,
+    "push_detail": null,
+    "push_status": "not_attempted",
+    "pushed": false,
+    "result": "skipped",
+    "skip_reason": "skipped",
+    "source_branch": "spec-exec/design-hld-execution-summary-34HZSV"
+  },
+  "metadata": {
+    "duration_ms": 341444,
+    "executor": "claude",
+    "finished_at": "2026-07-02T03:16:40.237344+00:00",
+    "log_dir": "/Users/royzuo/spec-e2e-v23/logs-hld/design-hld-execution-summary-34HZSV",
+    "mode": "worktree",
+    "repo_branch_base": "main",
+    "repo_branch_worktree": "spec-exec/design-hld-execution-summary-34HZSV",
+    "repo_url": "https://github.com/innuama-coder/spec-executor-testing-08-design.git",
+    "session_id": "design-hld-execution-summary-34HZSV",
+    "started_at": "2026-07-02T03:10:58.792358+00:00",
+    "task_name": "design-hld-execution-summary",
+    "worktree_path": "/Users/royzuo/spec-e2e-v23/.spec-executor-worktrees/design-hld-execution-summary-34HZSV"
+  },
+  "monitoring": {
+    "consecutive_escalate": 0,
+    "decision_done": 1,
+    "decision_escalate_normalized": 0,
+    "decision_fallback_used": 0,
+    "decision_nudge": 0,
+    "decision_timeout": 0,
+    "decision_total": 1,
+    "idle_timeout_hits": 1,
+    "last_decision_action": "done",
+    "last_decision_text": "Crunched for 5m5s; HLD with full handoff; task complete and idle",
+    "monitoring_finished_at": "2026-07-02T03:16:40.237344+00:00",
+    "monitoring_started_at": "2026-07-02T03:11:18.391102+00:00",
+    "nudge_count": 0,
+    "poll_count": 39
+  },
+  "schema_version": "spec-executor-report/2.0",
+  "spec_executor_version": "2.2.7",
+  "status": {
+    "failure_category": null,
+    "failure_detail": null,
+    "result": "passed"
+  }
+}
